@@ -52,7 +52,7 @@ class AuthorizationService {
 		_guestCredentials = guestUserCredentials;
 		_appCredentials = btoa(appId + ":" + appSecret);
 	}
-	
+
 	initAuthorizationType(authType) {
 		this.authType = authType;
 	}
@@ -144,6 +144,37 @@ class NotificationService {
 	}
 }
 
+class EventService {
+	constructor() {
+		this._router = Sammy(function () {});
+
+		this._router.run('#/');
+	}
+
+	redirectUrl(url) {
+		Sammy(function () {
+			this.redirect(url);
+		});
+	}
+
+	bindEventHandler(event, eventHandler) {
+		Sammy(function () {
+			this.bind(event, eventHandler);
+		});
+	}
+
+	onRoute(route, routeHandler) {
+		Sammy(function() {
+			this.get(route, routeHandler);
+		});
+	}
+	
+	triggerEvent(event, data) {
+		Sammy(function () {
+			this.trigger(event, data);
+		});
+	}
+}
 
 //MINIFIED LIBS
 
