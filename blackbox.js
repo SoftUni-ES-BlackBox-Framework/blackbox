@@ -87,6 +87,8 @@ class AuthorizationService {
     }
 }
 
+//NOTIFICATION SERVICES
+
 function showPopup(type, text, position) {
 
     function _showSuccessPopup(text, position) {

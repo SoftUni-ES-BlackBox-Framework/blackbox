@@ -1,43 +1,47 @@
+
 let _guestCredentials;
 let _appCredentials;
 
 class AuthorizationService {
-	constructor(baseServiceUrl, appId, appSecret, guestUserCredentials) {
-		this.baseServiceUrl = baseServiceUrl;
-		this.appId = appId;
-		this.appSecret = appSecret;
-		_guestCredentials = guestUserCredentials;
-		_appCredentials = btoa(appId + ":" + appSecret);
-	}
-	
-	initAuthorizationType(authType) {
-		this.authType = authType;
-	}
+    constructor(baseServiceUrl, appId, appSecret, guestUserCredentials) {
+        this.baseServiceUrl = baseServiceUrl;
+        this.appId = appId;
+        this.appSecret = appSecret;
+        _guestCredentials = guestUserCredentials;
+        _appCredentials = btoa(appId + ":" + appSecret);
+    }
 
-	getCurrentUser() {
-		return sessionStorage['currentUser'];
-	}
+    initAuthorizationType(authType) {
+        this.authType = authType;
+    }
 
-	isLoggedIn() {
-		return this.getCurrentUser !== undefined;
-	}
+    getCurrentUser() {
+        return sessionStorage['username'];
+    }
 
-	getAuthorizationHeaders(isGuest) {
-		let headers = {};
-		if (isLoggedIn) {
-			headers = {
-				'Authorization': this.authType + ' ' + this.getCurrentUser()._authToken
-			};
-		} else if (!isLoggedIn && isGuest) {
-			headers = {
-				'Authorization': this.authType + ' ' + _guestCredentials
-			};
-		} else if (!isLoggedIn && isGuest) {
-			headers = {
-				'Authorization': 'Basic' + ' ' + _appCredentials
-			};
-		}
+    isLoggedIn() {
+        return this.getCurrentUser() != undefined;
+    }
 
-		return headers;
-	}
+    getAuthorizationHeaders(isGuest) {
+        let headers = {};
+
+        if (this.isLoggedIn()) {
+            headers = {
+                'Authorization': this.authType + ' ' + sessionStorage['_authToken']
+            };
+        } else if (!this.isLoggedIn() && isGuest) {
+            headers = {
+                'Authorization': this.authType + ' ' + _guestCredentials
+            };
+        } else if (!this.isLoggedIn() && !isGuest) {
+            headers = {
+                'Authorization': 'Basic' + ' ' + _appCredentials
+            };
+        }
+
+        headers['Content-Type'] = 'application/json';
+
+        return headers;
+    }
 }
