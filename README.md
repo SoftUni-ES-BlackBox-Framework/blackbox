@@ -149,7 +149,11 @@ The framework consists mainly of 4 elements:
             will run
           
 Modules and wrapped up library logic
-  **Requester** - *JQuery*
-  **Requester** - *JQuery*
-  **Requester** - *JQuery*
-  
+  * **Requester** - *JQuery*
+  * **AuthorizationService** - *JQuery*
+  * **NotificationService** - *JQuery Noty*
+  * **EventService** - *SammyJS*
+
+## About
+
+This framework was created and documented by Ivaylo Jelev (Sanity) Github Alias - DCay. It is free to use under the terms and conditions of the MIT license. Criticizing and logging issues over the framework will be very helpful for the development of the framework.
